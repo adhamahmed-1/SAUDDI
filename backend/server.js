@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const bookingRoutes = require("./routes/bookingRoutes");
+
 require("dotenv").config();
 
 const connectDB = require("./config/db");
@@ -10,6 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
+
+app.use("/api/bookings", bookingRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("CryptoSA backend running 🚀");
