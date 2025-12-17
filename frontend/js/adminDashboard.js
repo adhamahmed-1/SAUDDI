@@ -1,4 +1,7 @@
 const token = localStorage.getItem("adminToken");
+const table = document.getElementById("bookingTable");
+
+let allBookings = [];
 
 async function loadBookings() {
   const res = await fetch("http://localhost:5000/api/bookings", {
@@ -7,28 +10,35 @@ async function loadBookings() {
     }
   });
 
-  const bookings = await res.json();
+  allBookings = await res.json();
+  renderBookings(allBookings);
+}
 
-  const tableBody = document.querySelector("#bookingTable tbody");
-  tableBody.innerHTML = "";
+function renderBookings(bookings) {
+  table.innerHTML = "";
 
   bookings.forEach(b => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
+      <td>${b.bookingId}</td>
       <td>${b.name}</td>
       <td>${b.email}</td>
-      <td>${new Date(b.date).toLocaleDateString()}</td>
-      <td class="${b.status === "approved" ? "status-approved" : "status-pending"}">
-        ${b.status}
-      </td>
+      <td>${b.phone}</td>
       <td>
-        <button class="action approve" onclick="updateStatus('${b._id}', 'approved')">Approve</button>
-        <button class="action reject" onclick="updateStatus('${b._id}', 'rejected')">Reject</button>
+        <span class="status ${b.status}">${b.status}</span>
+      </td>
+      <td>${new Date(b.createdAt).toLocaleDateString()}</td>
+      <td>
+        <select class="action" onchange="updateStatus('${b._id}', this.value)">
+          <option ${b.status === "pending" ? "selected" : ""}>pending</option>
+          <option ${b.status === "approved" ? "selected" : ""}>approved</option>
+          <option ${b.status === "rejected" ? "selected" : ""}>rejected</option>
+        </select>
       </td>
     `;
 
-    tableBody.appendChild(row);
+    table.appendChild(row);
   });
 }
 
@@ -42,7 +52,24 @@ async function updateStatus(id, status) {
     body: JSON.stringify({ status })
   });
 
-  loadBookings(); // refresh
+  loadBookings();
+}
+
+function applyFilters() {
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const status = document.getElementById("statusFilter").value;
+
+  let filtered = allBookings.filter(b =>
+    b.bookingId.toLowerCase().includes(search) ||
+    b.name.toLowerCase().includes(search) ||
+    b.email.toLowerCase().includes(search)
+  );
+
+  if (status !== "all") {
+    filtered = filtered.filter(b => b.status === status);
+  }
+
+  renderBookings(filtered);
 }
 
 function logout() {

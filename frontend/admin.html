@@ -7,33 +7,82 @@
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <h2>Moonbeam Admin</h2>
-    <button onclick="logout()">Logout</button>
-  </div>
+<div class="app">
 
-  <!-- DASHBOARD -->
-  <div class="dashboard">
-    <h3>Bookings</h3>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="logo">Admin</h2>
+    <nav>
+      <a class="active">Bookings</a>
+      <a>Analytics</a>
+      <a>Support</a>
+    </nav>
+  </aside>
 
-    <table id="bookingTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Data will be injected here -->
-      </tbody>
-    </table>
-  </div>
+  <!-- MAIN -->
+  <main class="main">
 
-  <script src="js/adminAuth.js"></script>
-  <script src="js/adminDashboard.js"></script>
+    <!-- HEADER -->
+    <header class="header">
+      <div>
+        <h1>Welcome back</h1>
+        <p>Manage your bookings and support</p>
+      </div>
+      <div class="profile">
+        <span>user@gmail.com</span>
+        <button onclick="logout()">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Bookings Management</h2>
+        <div class="actions">
+          <button onclick="loadBookings()">Refresh</button>
+          <button class="export">Export CSV</button>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filters">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by ID, name, or email"
+          oninput="applyFilters()"
+        />
+
+        <select id="statusFilter" onchange="applyFilters()">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Confirmed</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <!-- TABLE -->
+      <table>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookingTable"></tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+
+<script src="js/adminDashboard.js"></script>
+<script src="js/adminAuth.js"></script>
 </body>
 </html>
