@@ -5,6 +5,7 @@
   "hints": {
     "meta-viewport": "off",
     "axe/forms": "off",
-    "compat-api/css": "off"
+    "compat-api/css": "off",
+    "no-inline-styles": "off"
   }
 }
