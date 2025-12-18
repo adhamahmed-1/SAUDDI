@@ -85,17 +85,65 @@
   <!-- STEP 2 -->
   <div class="step-content" id="step2">
     <form id="bookingForm">
-      <input id="name" placeholder="Full Name" required>
-      <input id="email" type="email" placeholder="Email Address" required>
-      <input id="phone" placeholder="Phone Number" required>
-      <button type="submit">Confirm Booking</button>
+     <input id="fullName" placeholder="Full Name" required>
+     <input id="email" type="email" placeholder="Email Address" required>
+     <input id="phone" placeholder="Phone Number" required>
+     <button type="submit">Confirm Booking</button>
     </form>
+
+
     <p id="responseMessage"></p>
   </div>
 
 </section>
 
 <script src="js/booking.js"></script>
+
+
+
+<!-- STEP 3 -->
+<div class="step-content" id="step3">
+  <div class="confirm-card">
+    <h2>Confirm Your Booking</h2>
+
+    <div class="confirm-row">
+      <span>Package</span>
+      <span id="confirmPackage"></span>
+    </div>
+
+    <div class="confirm-row">
+      <span>Price</span>
+      <span id="confirmPrice"></span>
+    </div>
+
+    <div class="confirm-row">
+      <span>Name</span>
+      <span id="confirmName"></span>
+    </div>
+
+    <div class="confirm-row">
+      <span>Email</span>
+      <span id="confirmEmail"></span>
+    </div>
+
+    <div class="confirm-row">
+      <span>Phone</span>
+      <span id="confirmPhone"></span>
+    </div>
+
+    <div class="confirm-row booking-id" style="display:none">
+      <span>Booking ID</span>
+      <span id="confirmBookingId"></span>
+    </div>
+
+    <div class="confirm-actions">
+      <button id="backToStep2">← Back</button>
+      <button id="finalConfirm">Confirm Booking ✓</button>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -158,3 +206,4 @@
 
 </body>
 </html>
+
