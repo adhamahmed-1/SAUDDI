@@ -554,12 +554,27 @@ body{
 
 
 
+
+
+
+
+
 </style>
 </head>
 <div id="crypto-float-layer"></div>
 <div id="cursor-glow"></div>
 
 <body>
+
+
+
+
+
+
+
+
+
+
 
 <!-- NAV -->
 <div class="navbar">
@@ -745,6 +760,58 @@ document.querySelectorAll(".nav-links a").forEach(link=>{
   });
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Floating Chat Icon -->
+<div id="chat-fab">
+  💬
+</div>
+
+<!-- Live Support Panel -->
+<div id="chat-panel">
+  <div class="chat-header">
+    <div>
+      <h4>Live Support</h4>
+      <p>We typically reply within minutes</p>
+    </div>
+    <span id="chat-close">✕</span>
+  </div>
+
+  <div class="chat-content">
+    <label>Enter your Booking ID to start chatting:</label>
+    <input type="text" placeholder="e.g., CRY-XXXXXXXX" />
+
+    <div class="chat-empty">
+      💬
+      <p>No messages yet.<br/>Start a conversation below!</p>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input type="text" placeholder="Type your message..." />
+    <button>➤</button>
+  </div>
+</div>
+
+<link rel="stylesheet" href="css/chatbot.css">
+<script src="js/chatbot.js" defer></script>
+
+
+
+
+
+
+
+
+
 
 
 </body>
