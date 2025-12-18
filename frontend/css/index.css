@@ -1111,4 +1111,174 @@
       max-width: 100%;
     }
   }
-    
+   
+  
+  /* =========================
+   FOOTER
+========================= */
+.footer {
+  padding: 90px 20px 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(10,15,30,0.4),
+    rgba(5,8,15,0.85)
+  );
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-container {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 60px;
+}
+
+/* BRAND */
+.footer-brand h3 {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+
+.footer-brand h3 span {
+  background: linear-gradient(135deg, #3fffd8, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-brand p {
+  opacity: 0.7;
+  max-width: 320px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+/* SOCIALS */
+.footer-socials {
+  display: flex;
+  gap: 14px;
+}
+
+.social {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  font-size: 18px;
+}
+
+/* HOVER COLORS */
+.social:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 0 30px rgba(63,255,216,0.4);
+}
+
+.insta:hover    { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+.facebook:hover { background: linear-gradient(135deg,#1877f2,#4e9bff); }
+.twitter:hover  { background: linear-gradient(135deg,#1da1f2,#38bdf8); }
+.tiktok:hover   { background: linear-gradient(135deg,#25f4ee,#fe2c55); }
+.telegram:hover { background: linear-gradient(135deg,#229ed9,#38bdf8); }
+
+/* LINKS */
+.footer-links h4 {
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.footer-links a {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  opacity: 0.65;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: #3fffd8;
+  transform: translateX(4px);
+}
+
+/* BOTTOM */
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+.footer-socials {
+  display: flex;
+  gap: 14px;
+}
+
+.social {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.social svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  transition: 0.35s;
+}
+
+/* Hover Lift */
+.social:hover {
+  transform: translateY(-6px) scale(1.1);
+}
+
+/* Brand Gradients */
+.insta:hover {
+  background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af);
+}
+
+.facebook:hover {
+  background: linear-gradient(135deg,#1877f2,#4e9bff);
+}
+
+.twitter:hover {
+  background: linear-gradient(135deg,#000000,#1da1f2);
+}
+
+.tiktok:hover {
+  background: linear-gradient(135deg,#25f4ee,#fe2c55);
+}
+
+.telegram:hover {
+  background: linear-gradient(135deg,#229ed9,#38bdf8);
+}
