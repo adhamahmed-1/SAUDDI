@@ -1,4 +1,5 @@
-require("dotenv").config({ path: "../.env" });
+
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -20,18 +21,14 @@ connectDB();
 ===================== */
 app.use(cors({
   origin: [
+    "https://frone.netlify.app",     // ✅ FRONTEND
+    "http://localhost:5500",         // dev
     "http://127.0.0.1:5500",
-    "http://localhost:5500",
-    "http://localhost:3000",
-    "https://crypto-pro-1-efyw.onrender.com" // 👈 ADD THIS
+    "http://localhost:3000"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"]
 }));
-
-
-
-
 
 app.use(express.json());
 
@@ -43,10 +40,16 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 
 /* =====================
+   HEALTH CHECK
+===================== */
+app.get("/", (req, res) => {
+  res.json({ status: "API running 🚀" });
+});
+
+/* =====================
    SERVER
 ===================== */
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log("MONGO_URI =", process.env.MONGO_URI);
 });
