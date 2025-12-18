@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =====================
+     CONFIG
+  ===================== */
+  const API_BASE = "https://crypto-pro-2-el2q.onrender.com";
+
+  /* =====================
      STATE
   ===================== */
   let selectedPackage = "";
@@ -32,8 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       selectedPackage = card.dataset.package;
       amount = Number(card.dataset.amount);
-
-      console.log("Selected:", selectedPackage, amount);
     });
   });
 
@@ -48,12 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     step1.classList.remove("active");
     step2.classList.add("active");
-
-    console.log("Moved to Step 2");
   });
 
   /* =====================
-     FORM SUBMIT → STEP 3 (NO API YET)
+     FORM SUBMIT → STEP 3
   ===================== */
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -67,20 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Save user data
     userData = { name, email, phone };
 
-    // Fill confirmation values
     document.getElementById("confirmPackage").innerText = selectedPackage;
     document.getElementById("confirmPrice").innerText = `$${amount}`;
     document.getElementById("confirmName").innerText = name;
     document.getElementById("confirmEmail").innerText = email;
     document.getElementById("confirmPhone").innerText = phone;
 
-    // Hide booking ID initially
     document.querySelector(".booking-id").style.display = "none";
 
-    // Move to Step 3
     step2.classList.remove("active");
     step3.classList.add("active");
   });
@@ -101,11 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
     finalConfirmBtn.innerText = "Booking...";
 
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
+      const res = await fetch(`${API_BASE}/api/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          ...userData,
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone,
           packageName: selectedPackage,
           amount
         })
@@ -113,10 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await res.json();
 
-      if (res.ok && data.success) {
-        // Show booking ID
+      if (res.ok) {
+        // ✅ Booking successful
         document.querySelector(".booking-id").style.display = "flex";
-        document.getElementById("confirmBookingId").innerText = data.bookingId;
+        document.getElementById("confirmBookingId").innerText =
+          data.bookingId || "Generated";
 
         finalConfirmBtn.innerText = "Booked ✓";
       } else {
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
     } catch (error) {
-      console.error(error);
+      console.error("Booking Error:", error);
       alert("Server error. Please try again.");
       finalConfirmBtn.disabled = false;
       finalConfirmBtn.innerText = "Confirm Booking ✓";
