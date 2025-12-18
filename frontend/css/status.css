@@ -1037,3 +1037,52 @@ body {
     width: 56px;
   }
 }
+
+
+
+
+
+
+
+
+
+.status-card {
+  width: 420px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.status-card.success {
+  border: 1px solid #2ef2c5;
+  box-shadow: 0 0 25px rgba(46,242,197,0.4);
+}
+
+.status-card.error {
+  border: 1px solid #ff5f5f;
+  box-shadow: 0 0 20px rgba(255,95,95,0.3);
+}
+
+.confirmed {
+  color: #2ef2c5;
+}
+
+.next-step {
+  margin-top: 10px;
+  color: #cbd5f5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

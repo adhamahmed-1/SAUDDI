@@ -1,39 +1,55 @@
 const checkStatusBtn = document.getElementById("checkStatusBtn");
 const statusResult = document.getElementById("statusResult");
+const bookingInput = document.getElementById("bookingId");
 
 checkStatusBtn.addEventListener("click", async () => {
-  const bookingId = document.getElementById("bookingId").value.trim();
+  const bookingId = bookingInput.value.trim();
 
   if (!bookingId) {
-    statusResult.style.color = "red";
-    statusResult.innerText = "Please enter a Booking ID";
+    statusResult.innerHTML = `<p style="color:red">Please enter a Booking ID</p>`;
     return;
   }
 
+  // Loading state
+  statusResult.innerHTML = `
+    <div class="status-loading">
+      🔍 Checking booking status...
+    </div>
+  `;
+
   try {
     const res = await fetch(
-      `http://localhost:5001/api/bookings/${bookingId}`
+      `http://localhost:5000/api/bookings/status/${bookingId}`
     );
 
     const data = await res.json();
 
-    if (!res.ok) {
-      statusResult.style.color = "red";
-      statusResult.innerText = data.message || "Booking not found";
+    if (!res.ok || !data.success) {
+      statusResult.innerHTML = `
+        <div class="status-card error">
+          ❌ Booking ID not found
+        </div>
+      `;
       return;
     }
 
-    statusResult.style.color = "lightgreen";
+    // SUCCESS UI (MATCHES YOUR IMAGE)
     statusResult.innerHTML = `
-      <p><strong>Status:</strong> ${data.status}</p>
-      <p><strong>Package:</strong> ${data.packageName}</p>
-      <p><strong>Amount:</strong> ₹${data.amount}</p>
-      <p><strong>Created At:</strong> ${new Date(
-        data.createdAt
-      ).toLocaleString()}</p>
+      <div class="status-card success">
+        <h2>Status: <span class="confirmed">Confirmed ✔</span></h2>
+        <p>Your booking is confirmed.</p>
+        <p class="next-step">
+          <strong>Next Step:</strong> Our team will contact you shortly.
+        </p>
+      </div>
     `;
+
   } catch (error) {
-    statusResult.style.color = "red";
-    statusResult.innerText = "Server error. Try again later.";
+    console.error(error);
+    statusResult.innerHTML = `
+      <div class="status-card error">
+        ⚠ Server error. Please try again later.
+      </div>
+    `;
   }
 });
