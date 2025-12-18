@@ -13,19 +13,34 @@
 
 <!-- NAVBAR -->
 <header class="navbar">
+
   <div class="logo-area">
     <img src="assets/logo2metaa.jpg" alt="Metalife AI" class="logo-img">
     <span class="logo-text">Metalife <b>AI</b></span>
   </div>
 
+  <!-- TOGGLE MUST COME BEFORE NAV -->
+  <input type="checkbox" id="nav-toggle">
+
   <nav class="nav-links">
     <a class="active">Home</a>
     <a href="book.html">Book Now</a>
     <a href="status.html">Check Status</a>
+    <a class="mobile-admin">Admin</a>
   </nav>
 
-  <button class="btn-admin">Admin</button>
+  <!-- HAMBURGER LABEL MUST TARGET CHECKBOX -->
+  <label for="nav-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <!-- DESKTOP ADMIN -->
+  <button class="btn-admin desktop-only">Admin</button>
+
 </header>
+
 
 <!-- HERO -->
 <section class="hero">
@@ -33,11 +48,11 @@
 
   <h1>
     Reserve Your<br>
-    <span class="gradient-text">MLT Tokens Now</span>
+    <span class="gradient-text">MetaCoins Tokens Now</span>
   </h1>
 
   <p class="hero-sub">
-    Reserve your MLT tokens with a minimum commitment of <b>$15,000</b>
+    Reserve your MetaCoins tokens with a minimum commitment of <b>$15,000</b>
     and a maximum of <b>$25,000</b>. This exclusive pre-sale is limited
     to early supporters for one week before the ICO phase begins.
   </p>
@@ -59,9 +74,15 @@
   </div>
 
   <div class="hero-actions">
-    <button class="btn-gradient big">Book Tokens Now</button>
-    <button class="btn-outline big">Check Booking Status →</button>
+    <a href="book.html" class="btn-gradient big">
+      Book Tokens Now
+    </a>
+  
+    <a href="status.html" class="btn-outline big">
+      Check Booking Status →
+    </a>
   </div>
+  
 
   <div class="stats">
     <div class="stat">$12M+<span>Raised</span></div>
