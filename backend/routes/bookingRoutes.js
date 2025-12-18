@@ -12,23 +12,17 @@ const {
   updateBookingStatus
 } = require("../controllers/bookingController");
 
-// =======================
-// USER ROUTES (PUBLIC)
-// =======================
+/* =======================
+   USER ROUTES (PUBLIC)
+======================= */
+
+// ✅ CREATE BOOKING
 router.post("/", createBooking);
-router.get("/:id", getBookingById);
 
-// =======================
-// ADMIN ROUTES (PROTECTED)
-// =======================
-router.get("/", auth, adminOnly, getAllBookings);
-router.put("/:id", auth, adminOnly, updateBookingStatus);
-
-// CHECK BOOKING STATUS
+// ✅ CHECK BOOKING STATUS (PLACE BEFORE :id)
 router.get("/status/:bookingId", async (req, res) => {
   try {
     const bookingId = req.params.bookingId.trim();
-
 
     const booking = await Booking.findOne({ bookingId });
 
@@ -51,5 +45,15 @@ router.get("/status/:bookingId", async (req, res) => {
     });
   }
 });
+
+// ✅ GET BOOKING BY ID (KEEP AFTER STATUS)
+router.get("/:id", getBookingById);
+
+/* =======================
+   ADMIN ROUTES (PROTECTED)
+======================= */
+
+router.get("/", auth, adminOnly, getAllBookings);
+router.put("/:id", auth, adminOnly, updateBookingStatus);
 
 module.exports = router;

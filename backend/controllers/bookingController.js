@@ -1,13 +1,18 @@
 const Booking = require("../models/Booking");
 const generateBookingId = require("../utils/generateBookingId");
 
+// ================================
 // CREATE BOOKING
+// ================================
 exports.createBooking = async (req, res) => {
   try {
     const { name, email, phone, packageName, amount } = req.body;
 
-    if (!name || !email || !phone || !packageName || !amount) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (!name || !email || !phone || !packageName || amount === undefined) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      });
     }
 
     const booking = await Booking.create({
@@ -16,7 +21,8 @@ exports.createBooking = async (req, res) => {
       email,
       phone,
       packageName,
-      amount
+      amount,
+      status: "pending"
     });
 
     res.status(201).json({
@@ -24,12 +30,19 @@ exports.createBooking = async (req, res) => {
       bookingId: booking.bookingId,
       message: "Booking created successfully"
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Create booking error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 };
 
-// GET BOOKING STATUS
+// ================================
+// GET BOOKING BY BOOKING ID
+// ================================
 exports.getBookingById = async (req, res) => {
   try {
     const booking = await Booking.findOne({
@@ -37,21 +50,29 @@ exports.getBookingById = async (req, res) => {
     });
 
     if (!booking) {
-      return res.status(404).json({ message: "Booking not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found"
+      });
     }
 
     res.json({
+      success: true,
       bookingId: booking.bookingId,
       status: booking.status,
       packageName: booking.packageName,
       amount: booking.amount,
       createdAt: booking.createdAt
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Get booking error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 };
-
 
 // ================================
 // ADMIN: GET ALL BOOKINGS
@@ -59,9 +80,16 @@ exports.getBookingById = async (req, res) => {
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find().sort({ createdAt: -1 });
-    res.json(bookings);
+    res.json({
+      success: true,
+      bookings
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Get all bookings error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 };
 
@@ -73,7 +101,10 @@ exports.updateBookingStatus = async (req, res) => {
     const { status } = req.body;
 
     if (!["pending", "approved", "rejected"].includes(status)) {
-      return res.status(400).json({ message: "Invalid status" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status"
+      });
     }
 
     const booking = await Booking.findByIdAndUpdate(
@@ -83,7 +114,10 @@ exports.updateBookingStatus = async (req, res) => {
     );
 
     if (!booking) {
-      return res.status(404).json({ message: "Booking not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found"
+      });
     }
 
     res.json({
@@ -91,7 +125,12 @@ exports.updateBookingStatus = async (req, res) => {
       message: "Booking status updated",
       booking
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Update booking error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 };
