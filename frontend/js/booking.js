@@ -3,10 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =====================
      CONFIG
   ===================== */
-  // const API_BASE = "https://crypto-pro-2-el2q.onrender.com";
-
-const API_BASE = "http://localhost:10000";
-
+  const API_BASE = "https://crypto-pro-1.onrender.com";
 
   /* =====================
      STATE
@@ -30,6 +27,8 @@ const API_BASE = "http://localhost:10000";
   const backBtn = document.getElementById("backToStep2");
   const finalConfirmBtn = document.getElementById("finalConfirm");
 
+  const bookingIdBox = document.querySelector(".booking-id");
+
   /* =====================
      PACKAGE SELECTION (STEP 1)
   ===================== */
@@ -47,7 +46,7 @@ const API_BASE = "http://localhost:10000";
      GO TO STEP 2
   ===================== */
   continueBtn.addEventListener("click", () => {
-    if (!selectedPackage) {
+    if (!selectedPackage || !amount) {
       alert("Please select a package first");
       return;
     }
@@ -74,12 +73,12 @@ const API_BASE = "http://localhost:10000";
     userData = { name, email, phone };
 
     document.getElementById("confirmPackage").innerText = selectedPackage;
-    document.getElementById("confirmPrice").innerText = `$${amount}`;
+    document.getElementById("confirmPrice").innerText = `₹${amount}`;
     document.getElementById("confirmName").innerText = name;
     document.getElementById("confirmEmail").innerText = email;
     document.getElementById("confirmPhone").innerText = phone;
 
-    document.querySelector(".booking-id").style.display = "none";
+    if (bookingIdBox) bookingIdBox.style.display = "none";
 
     step2.classList.remove("active");
     step3.classList.add("active");
@@ -97,6 +96,8 @@ const API_BASE = "http://localhost:10000";
      FINAL CONFIRM → API CALL
   ===================== */
   finalConfirmBtn.addEventListener("click", async () => {
+
+    // prevent double click
     finalConfirmBtn.disabled = true;
     finalConfirmBtn.innerText = "Booking...";
 
@@ -117,22 +118,21 @@ const API_BASE = "http://localhost:10000";
 
       const data = await res.json();
 
-      if (res.ok) {
-        // ✅ Booking successful
-        document.querySelector(".booking-id").style.display = "flex";
-        document.getElementById("confirmBookingId").innerText =
-          data.bookingId || "Generated";
-
-        finalConfirmBtn.innerText = "Booked ✓";
-      } else {
-        alert(data.message || "Booking failed");
-        finalConfirmBtn.disabled = false;
-        finalConfirmBtn.innerText = "Confirm Booking ✓";
+      if (!res.ok) {
+        throw new Error(data.message || "Booking failed");
       }
+
+      // ✅ SUCCESS
+      if (bookingIdBox) bookingIdBox.style.display = "flex";
+      document.getElementById("confirmBookingId").innerText =
+        data.bookingId || "Generated";
+
+      finalConfirmBtn.innerText = "Booked ✓";
 
     } catch (error) {
       console.error("Booking Error:", error);
-      alert("Server error. Please try again.");
+      alert(error.message || "Server error. Please try again.");
+
       finalConfirmBtn.disabled = false;
       finalConfirmBtn.innerText = "Confirm Booking ✓";
     }
