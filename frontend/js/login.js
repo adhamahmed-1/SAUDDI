@@ -27,7 +27,6 @@ async function login() {
         setTimeout(() => {
           window.location.href = "/admin.html";
         }, 500);
-      } else {
         errorDiv.innerText = "Invalid admin credentials";
       }
     } catch (err) {
