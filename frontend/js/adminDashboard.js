@@ -3,7 +3,7 @@ console.log("✅ adminDashboard.js loaded");
 /* =========================
    CONFIG
 ========================= */
-const API_BASE = ""; // IMPORTANT: works for both local & Render
+const API_BASE = ""; // works for both local & Render
 const adminToken = localStorage.getItem("adminToken");
 
 if (!adminToken) {
@@ -22,7 +22,7 @@ let allBookings = [];
 function showSkeleton() {
   table.innerHTML = `
     <tr>
-      <td colspan="7" style="padding:30px; opacity:0.5; text-align:center">
+      <td colspan="8" style="padding:30px; opacity:0.5; text-align:center">
         Loading bookings...
       </td>
     </tr>
@@ -70,7 +70,7 @@ function renderBookings(bookings) {
   if (!bookings || bookings.length === 0) {
     table.innerHTML = `
       <tr>
-        <td colspan="7" style="padding:30px; opacity:0.5; text-align:center">
+        <td colspan="8" style="padding:30px; opacity:0.5; text-align:center">
           No bookings available
         </td>
       </tr>
@@ -81,11 +81,21 @@ function renderBookings(bookings) {
   bookings.forEach(b => {
     const row = document.createElement("tr");
 
+    const telegramLink = b.telegram
+      ? `<a href="https://t.me/${b.telegram.replace("@", "")}" target="_blank">
+           ${b.telegram}
+         </a>`
+      : "-";
+
     row.innerHTML = `
       <td>${b.bookingId}</td>
       <td>${b.name}</td>
       <td>${b.email}</td>
       <td>${b.phone}</td>
+
+      <!-- ✅ TELEGRAM -->
+      <td>${telegramLink}</td>
+
       <td>
         <span class="status ${b.status}">${b.status}</span>
       </td>
@@ -93,8 +103,8 @@ function renderBookings(bookings) {
       <td>
         <select class="action" onchange="updateStatus('${b._id}', this.value)">
           <option value="pending" ${b.status === "pending" ? "selected" : ""}>Pending</option>
-          <option value="approved" ${b.status === "approved" ? "selected" : ""}>Confirmed</option>
-          <option value="rejected" ${b.status === "rejected" ? "selected" : ""}>Cancelled</option>
+          <option value="approved" ${b.status === "approved" ? "selected" : ""}>Approved</option>
+          <option value="rejected" ${b.status === "rejected" ? "selected" : ""}>Rejected</option>
         </select>
       </td>
     `;
@@ -146,7 +156,8 @@ function applyFilters() {
   let filtered = allBookings.filter(b =>
     b.bookingId.toLowerCase().includes(search) ||
     b.name.toLowerCase().includes(search) ||
-    b.email.toLowerCase().includes(search)
+    b.email.toLowerCase().includes(search) ||
+    (b.telegram && b.telegram.toLowerCase().includes(search))
   );
 
   if (status !== "all") {
@@ -162,13 +173,22 @@ function applyFilters() {
 function exportCSV() {
   if (!allBookings.length) return;
 
-  const headers = ["Booking ID", "Name", "Email", "Phone", "Status", "Created"];
+  const headers = [
+    "Booking ID",
+    "Name",
+    "Email",
+    "Phone",
+    "Telegram",
+    "Status",
+    "Created"
+  ];
 
   const rows = allBookings.map(b => [
     b.bookingId,
     b.name,
     b.email,
     b.phone,
+    b.telegram || "",
     b.status,
     new Date(b.createdAt).toLocaleDateString()
   ]);

@@ -11,14 +11,11 @@
 <header class="navbar">
   <div class="logo">MetaLife Ai</div>
   <nav>
-    <a href="index.html" >Home</a>
+    <a href="index.html">Home</a>
     <a class="active">Book Now</a>
     <a href="status.html">Check Status</a>
   </nav>
 </header>
-
-
-
 
 <section class="booking">
 
@@ -28,7 +25,7 @@
     Choose your participation amount and get early access to the MetaLife AI ecosystem.
   </p>
 
-  <!-- STEPS INDICATOR -->
+  <!-- STEPS -->
   <div class="steps">
     <div class="step active">1</div>
     <div class="line"></div>
@@ -39,13 +36,11 @@
 
   <!-- ================= STEP 1 ================= -->
   <div class="step-content active" id="step1">
-
     <h2 class="amount-title">Select Purchase Amount</h2>
     <p class="amount-sub">
-      Minimum purchase: <b>$200</b> &nbsp;|&nbsp; Maximum purchase: <b>$15,000</b>
+      Minimum purchase: <b>$200</b> | Maximum purchase: <b>$15,000</b>
     </p>
 
-    <!-- Amount Input -->
     <div class="amount-box">
       <span>$</span>
       <input
@@ -58,7 +53,6 @@
       >
     </div>
 
-    <!-- Quick Presets -->
     <div class="amount-presets">
       <button type="button" data-value="200">$200</button>
       <button type="button" data-value="500">$500</button>
@@ -73,15 +67,23 @@
 
   <!-- ================= STEP 2 ================= -->
   <div class="step-content" id="step2">
-
     <form id="bookingForm">
+
       <input id="fullName" placeholder="Full Name" required>
+
       <input id="email" type="email" placeholder="Email Address" required>
+
       <input id="phone" placeholder="Phone Number" required>
+
+      <!-- ✅ TELEGRAM ID ADDED -->
+      <input
+        id="telegram"
+        placeholder="Telegram ID (e.g. @username)"
+        required
+      >
 
       <button type="submit">Continue →</button>
     </form>
-
   </div>
 
   <!-- ================= STEP 3 ================= -->
@@ -95,9 +97,11 @@
       <p><strong>Name:</strong> <span id="confirmName"></span></p>
       <p><strong>Email:</strong> <span id="confirmEmail"></span></p>
       <p><strong>Phone:</strong> <span id="confirmPhone"></span></p>
+
+      <!-- ✅ TELEGRAM CONFIRM -->
+      <p><strong>Telegram:</strong> <span id="confirmTelegram"></span></p>
     </div>
 
-    <!-- Booking ID (hidden until success) -->
     <div class="booking-id" style="display:none;">
       <p>Your Booking ID:</p>
       <strong id="confirmBookingId"></strong>
@@ -112,60 +116,9 @@
 
 </section>
 
-
 <script src="js/booking.js"></script>
 
-
-
-<!-- STEP 3 -->
-<div class="step-content" id="step3">
-  <div class="confirm-card">
-    <h2>Confirm Your Booking</h2>
-
-    <div class="confirm-row">
-      <span>Package</span>
-      <span id="confirmPackage"></span>
-    </div>
-
-    <div class="confirm-row">
-      <span>Price</span>
-      <span id="confirmPrice"></span>
-    </div>
-
-    <div class="confirm-row">
-      <span>Name</span>
-      <span id="confirmName"></span>
-    </div>
-
-    <div class="confirm-row">
-      <span>Email</span>
-      <span id="confirmEmail"></span>
-    </div>
-
-    <div class="confirm-row">
-      <span>Phone</span>
-      <span id="confirmPhone"></span>
-    </div>
-
-    <div class="confirm-row booking-id" style="display:none">
-      <span>Booking ID</span>
-      <span id="confirmBookingId"></span>
-    </div>
-
-    <div class="confirm-actions">
-      <button id="backToStep2">← Back</button>
-      <button id="finalConfirm">Confirm Booking ✓</button>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-<!-- ===== CHATBOT START ===== -->
+<!-- ===== CHATBOT ===== -->
 <div id="chat-fab">💬</div>
 
 <div id="chat-panel">
@@ -186,21 +139,5 @@
 <script src="js/chatbot.js"></script>
 <!-- ===== CHATBOT END ===== -->
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- ===== CHATBOT END ===== -->
-
-
-
 </body>
 </html>
-

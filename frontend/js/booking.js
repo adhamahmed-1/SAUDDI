@@ -63,18 +63,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value.trim();
     const phone = document.getElementById("phone").value.trim();
 
-    if (!name || !email || !phone) {
-      alert("Please fill all details");
+    // ✅ TELEGRAM
+    const telegram = document.getElementById("telegram").value.trim();
+
+    if (!name || !email || !phone || !telegram) {
+      alert("Please fill all details including Telegram ID");
       return;
     }
 
-    userData = { name, email, phone };
+    userData = { name, email, phone, telegram };
 
     document.getElementById("confirmPackage").innerText = "Custom Amount";
     document.getElementById("confirmPrice").innerText = `$${amount}`;
     document.getElementById("confirmName").innerText = name;
     document.getElementById("confirmEmail").innerText = email;
     document.getElementById("confirmPhone").innerText = phone;
+
+    // ✅ SHOW TELEGRAM IN STEP 3
+    const telegramEl = document.getElementById("confirmTelegram");
+    if (telegramEl) telegramEl.innerText = telegram;
 
     if (bookingIdBox) bookingIdBox.style.display = "none";
 
@@ -108,7 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
           name: userData.name,
           email: userData.email,
           phone: userData.phone,
-          packageName: "Custom", // backend compatibility
+          telegram: userData.telegram, // ✅ TELEGRAM SENT
+          packageName: "Custom",
           amount
         })
       });
