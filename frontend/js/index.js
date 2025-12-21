@@ -19,7 +19,7 @@ setInterval(() => {
 }, 1000);
 
 // ======================
-// AMBIENT AI + ROBOT PARTICLES (FULL PAGE)
+// CANVAS: AI + ROBOT PARTICLES
 // ======================
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
@@ -29,13 +29,13 @@ function resizeCanvas() {
   canvas.height = document.body.scrollHeight;
 }
 resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 // ----------------------
-// CONFIG (INCREASED DENSITY)
+// CONFIG
 // ----------------------
-const PARTICLE_COUNT = 190;     // 🔥 increased
-const ICON_RATIO = 0.35;        // 🔥 more icons
-
+const PARTICLE_COUNT = 190;
+const ICON_RATIO = 0.35;
 const ICONS = ["🤖", "🧠", "⬡", "⛓"];
 const particles = [];
 
@@ -78,9 +78,9 @@ function drawParticle(p) {
 }
 
 // ----------------------
-// ANIMATE
+// ANIMATE PARTICLES
 // ----------------------
-function animate() {
+function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   particles.forEach(p => {
@@ -99,12 +99,23 @@ function animate() {
   });
 
   ctx.globalAlpha = 1;
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateParticles);
 }
 
-animate();
+animateParticles();
 
-// ----------------------
-// RESIZE
-// ----------------------
-window.addEventListener("resize", resizeCanvas);
+// ======================
+// PREMIUM PARALLAX MOTION
+// (FOR FLOATING TILES BACKGROUND)
+// ======================
+const tiles = document.querySelectorAll(".float-tile");
+
+window.addEventListener("mousemove", e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 30;
+  const y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+  tiles.forEach((tile, i) => {
+    tile.style.transform =
+      `translate(${x * (i + 1) * 0.35}px, ${y * (i + 1) * 0.35}px)`;
+  });
+});

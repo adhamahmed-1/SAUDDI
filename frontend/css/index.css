@@ -3032,3 +3032,165 @@
 .cap-card:hover {
   transform: translateY(-6px);
 }
+
+
+/* ===============================
+   PREMIUM AI HERO BACKGROUND
+================================ */
+
+.premium-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -6;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 30%, #1a2550, #070b18 65%);
+}
+
+/* Moving Aurora */
+.aurora-layer {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(99,102,241,0.35), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(34,211,238,0.25), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(168,85,247,0.2), transparent 55%);
+  animation: auroraFlow 20s ease-in-out infinite alternate;
+}
+
+@keyframes auroraFlow {
+  from { transform: translate(-5%, -5%) rotate(0deg); }
+  to { transform: translate(5%, 5%) rotate(10deg); }
+}
+
+/* Floating Glass Tiles */
+.float-tile {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #7dd3fc;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+  animation: tileFloat 9s ease-in-out infinite;
+}
+
+/* Tile Positions */
+.t1 { top: 22%; left: 12%; animation-delay: 0s; }
+.t2 { top: 32%; right: 18%; animation-delay: 2s; }
+.t3 { bottom: 28%; left: 26%; animation-delay: 4s; }
+.t4 { bottom: 22%; right: 14%; animation-delay: 6s; }
+
+@keyframes tileFloat {
+  0% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-28px) rotateX(14deg); }
+  100% { transform: translateY(0px) rotateX(0deg); }
+}
+
+/* Glow Dots */
+.glow-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 20px #38bdf8;
+  opacity: 0.6;
+  animation: glowBlink 3s infinite alternate;
+}
+
+.g1 { top: 45%; left: 52%; }
+.g2 { top: 62%; left: 30%; animation-delay: 1s; }
+.g3 { top: 30%; right: 38%; animation-delay: 2s; }
+
+@keyframes glowBlink {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+
+/* IMPORTANT: KEEP SECTIONS TRANSPARENT */
+.hero,
+.features,
+.performance,
+.capabilities,
+.whitepaper {
+  background: transparent !important;
+}
+/* ===== HERO PREMIUM GLOW ===== */
+.hero {
+  position: relative;
+  z-index: 2;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(99,102,241,0.25), transparent 55%),
+    radial-gradient(circle at 70% 60%, rgba(34,211,238,0.18), transparent 60%);
+  filter: blur(60px);
+  z-index: -1;
+}
+.premium-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -6;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 30%, #1f2a60, #070b18 65%),
+    radial-gradient(circle at 80% 70%, rgba(56,189,248,0.08), transparent 60%);
+}
+.float-tile {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.10),
+    rgba(255,255,255,0.02)
+  );
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #7dd3fc;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
+  animation: tileFloat 12s ease-in-out infinite;
+}
+@keyframes tileFloat {
+  0%   { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+  50%  { transform: translateY(-34px) rotateX(16deg) rotateY(10deg); }
+  100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+}
+.countdown .time-box {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  border-radius: 14px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.4),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
+}
+.btn-gradient {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 40px rgba(56,189,248,0.4),
+    0 0 0 1px rgba(255,255,255,0.15);
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.06);
+}
